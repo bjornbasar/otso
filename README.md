@@ -22,6 +22,9 @@ differs from its store-facing name, e.g. `karu` → "Tongits TwoBots").
 - `table-surface.css` — the fixed, full-bleed woven background layer.
 - `card/` — `CardFace`, `SuitSprite`, and the generic portion of card rendering (rank/pip/back;
   not any one game's own card treatment).
+- `overlay.css` — `.overlay-backdrop` / `.overlay-panel` (+ `.overlay-panel--elevated`), the
+  dimmed, centred dialog shell shared by every reference screen and settlement/reveal sheet.
+  CSS only — each app keeps its own focus management, Escape handling, and panel content.
 
 **Out of scope, stays in each app** — anything with real game rules behind it: melds, discard
 piles, settlement sheets, a widow slot, an action console. This is shared *material*, not a
@@ -41,7 +44,18 @@ on "whatever's newest" is exactly the kind of silent divergence this package exi
 import '@twobots/ui-theme/tokens.css'
 import '@twobots/ui-theme/table-surface.css'
 import '@twobots/ui-theme/card.css'
+import '@twobots/ui-theme/overlay.css'
 import { CardFace, SuitSprite, type Card } from '@twobots/ui-theme/card'
+```
+
+A dialog screen combines `overlay-backdrop`/`overlay-panel` with the app's own dialog markup:
+
+```tsx
+<div className="overlay-backdrop">
+  <div className="my-screen overlay-panel" role="dialog" aria-modal="true" aria-labelledby="…">
+    {/* app-owned: header, close button, focus management, Escape handling, content */}
+  </div>
+</div>
 ```
 
 Import `tokens.css` first, before any of your own app's stylesheets — same reasoning as in karu:

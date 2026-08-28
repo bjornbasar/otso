@@ -1,0 +1,38 @@
+/*
+ * A dismissible dialog over the board: a dimmed, full-viewport backdrop with a centred
+ * panel inside it. Deliberately CSS only, no React wrapper — every consumer already owns
+ * real per-screen behaviour (focus management, Escape handling, what's inside the panel)
+ * that doesn't belong in a shared component, so this only standardises the shell two
+ * apps had each hand-built to the same shape: a `role="dialog" aria-modal="true"` panel
+ * a player cannot see or reach past without closing it first.
+ *
+ * `.overlay-panel--elevated` is for a panel that IS the moment (a round's reveal, a
+ * match's settlement) rather than a reference you consult and dismiss — a heavier shadow
+ * for the one place that should read as the most prominent thing on screen.
+ */
+
+.overlay-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-sheet);
+  background: rgb(0 0 0 / 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  overflow-y: auto;
+  padding: 1rem;
+}
+
+.overlay-panel {
+  inline-size: 100%;
+  max-inline-size: 40rem;
+  padding: 1rem 1.5rem;
+  border-radius: 8px;
+  background: var(--paper);
+  color: var(--text);
+  box-shadow: var(--shadow-lift);
+}
+
+.overlay-panel--elevated {
+  box-shadow: 0 12px 40px rgb(0 0 0 / 0.45);
+}
