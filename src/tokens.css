@@ -1,0 +1,127 @@
+/*
+ * Design tokens shared across the twobots.dev card-game lineup — the material, not the
+ * layout. Extracted from karu (Tongits TwoBots), the first and longest-running app in the
+ * lineup, after andarta hand-retyped these same values once already and it still took a
+ * live side-by-side screenshot comparison to catch what a per-property copy missed.
+ *
+ * What's deliberately NOT here: any token whose value is a rule-specific vocabulary word
+ * (a game's own state names) or a board-geometry number tuned to one game's content shape
+ * (hand size, meld-row height, a discard-review sheet's column count). Those stay in each
+ * app's own token file, which imports this one first and adds its own on top — the same
+ * relationship a theme has to an app that names things with it. See karu's `web/tokens.css`
+ * for a worked example of exactly that split.
+ *
+ * Imported FIRST, before any other stylesheet in a consuming app — same reasoning as in
+ * karu: two stylesheets defining the same custom property at equal specificity is a
+ * cascade-order lottery, and this file is the one place these particular ones are declared.
+ */
+
+:root {
+  color-scheme: dark;
+
+  /* --- type -------------------------------------------------------------- */
+  --font-ui: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --font-display: 'Avenir Next Condensed', 'Roboto Condensed', 'Segoe UI Semibold',
+    'Helvetica Neue', system-ui, sans-serif;
+  --step--1: clamp(0.72rem, 0.68rem + 0.2vw, 0.8rem);
+  --step-0: clamp(0.88rem, 0.84rem + 0.2vw, 0.96rem);
+  --step-1: clamp(1.05rem, 0.98rem + 0.35vw, 1.2rem);
+
+  /* --- materials: the mat, the card, the panel ---------------------------- */
+  --mat: #16324f;
+  --mat-lo: #142d47;
+  --mat-deep: #112740;
+  --mat-deep-lo: #0f2339;
+  --well: #0c1c2e;
+  --well-lo: #0a1725;
+
+  --card: #fcfaf6;
+  --card-line: #e3dacb;
+  --card-back: #c96a2b;
+
+  --paper: #1b3a5c;
+
+  --ink: #2a231b;
+  --text: #fdf4ee;
+  --dim: #a8c2da;
+
+  /* --- suits: colour lives here and nowhere else -------------------------- */
+  --suit-ink: #241e17;
+  --suit-red: #b3231c;
+  --suit-blue: #14539e;
+  /* Teal, not leaf green: leaf green converges with red under deuteranopia, so the
+     canonical "accessibility" four-colour deck reproduces the very confusion it exists
+     to remove. */
+  --suit-teal: #0b6b5b;
+  --suit-S: var(--suit-ink);
+  --suit-H: var(--suit-red);
+  --suit-D: var(--suit-red);
+  --suit-C: var(--suit-ink);
+
+  /* --- accent / target / focus --------------------------------------------
+     accent = YOU CHOSE THIS. target = THIS WILL ACCEPT IT. Never both on one element,
+     and neither is ever the sole channel. */
+  --accent: #f170aa;
+  --accent-on-card: #a81e63;
+  --target: #8aa8f5;
+
+  /* No single hue clears 3:1 on both a near-white card and a near-black mat, so the
+     focus ring carries both and one half always wins. */
+  --focus-dark: #141018;
+  --focus-light: #fff6e4;
+
+  /* --- weave + light -------------------------------------------------------
+     Unequal pitches ON PURPOSE — equal ones lock into a diamond lattice that reads as
+     gingham rather than a woven mat. Faint, not bold — a light overlay on a dark ground
+     is a far larger relative luminance jump than the same overlay on a light one. */
+  --weave-warp: 34px;
+  --weave-weft: 38px;
+  --weave-hi: rgb(190 220 245 / 0.020);
+  --weave-lo: rgb(0 0 0 / 0.030);
+  --vignette: rgb(4 12 22 / 0.34);
+  --lamp: rgb(200 226 250 / 0.05);
+
+  /* --- shadows: near-black, not warm-brown — a warm shadow on a cool mat smudges --- */
+  --shadow-card: 0 1px 1px rgb(3 9 18 / 0.44), 0 3px 7px rgb(3 9 18 / 0.38);
+  --shadow-lift: 0 3px 5px rgb(3 9 18 / 0.5), 0 12px 22px rgb(3 9 18 / 0.44);
+  --inset-well: inset 0 2px 6px rgb(2 7 14 / 0.6), inset 0 -1px 0 rgb(190 220 245 / 0.06);
+
+  /* --- card geometry (5:7 poker proportions, as physical decks use) -------- */
+  --hand-w: 46px;
+  --hand-h: 64px;
+  --idx-w: 30px;
+  --idx-h: 42px;
+  --back-w: 26px;
+  --back-h: 36px;
+  --back-step: 8px;
+  --rank-scale: 0.44;
+
+  /* --- a shared z-index scale, not a shared compositing order --------------
+     Every app has a board, a sheet layer, a drag proxy and a splash — the SCALE below is
+     a reasonable shared convention, but where a given app's own content actually sits is
+     its own call. */
+  --z-board: 1;
+  --z-sheet: 40;
+  --z-proxy: 1000;
+  --z-splash: 100;
+
+  /* --- the splash / title-screen palette ------------------------------------
+     A flat printed sheet (a blueprint, with a rule grid and no lamp) rather than the lit
+     woven mat above — kept separate because the two answer different questions: sharing
+     `--mat` would tie a texture decision to a typography one and neither could move. */
+  --splash-bg: #16324f;
+  --splash-panel: #1b3a5c;
+  --splash-grid: #ffffff14;
+  --splash-ink: #fdf4ee;
+  --splash-dim: #a8c2da;
+  --splash-pip: #e8894a;
+  --splash-seat-line: #e8894a99;
+}
+
+/* The four-colour deck, in its entirety. Red/green confusion causes MISPLAYS in a
+   rummy-family game rather than mere annoyance, and affects roughly 4-6.5% of men in
+   this audience — which is why suit colour never touches artwork, only these tokens. */
+:root[data-deck='four'] {
+  --suit-D: var(--suit-blue);
+  --suit-C: var(--suit-teal);
+}

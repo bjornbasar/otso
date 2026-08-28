@@ -1,0 +1,35 @@
+{
+  "name": "@twobots/ui-theme",
+  "version": "0.1.0",
+  "description": "Shared visual material for the twobots.dev card-game lineup — design tokens, generic card rendering, and table-shell chrome. Ships raw source; consuming apps compile it with their own Vite/TypeScript pipeline.",
+  "type": "module",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bjornbasar/otso.git"
+  },
+  "files": [
+    "src"
+  ],
+  "exports": {
+    "./tokens.css": "./src/tokens.css",
+    "./table-surface.css": "./src/table-surface.css",
+    "./card.css": "./src/card/card.css",
+    "./card": "./src/card/index.ts"
+  },
+  "engines": {
+    "node": ">=22.13"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit"
+  },
+  "peerDependencies": {
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "devDependencies": {
+    "@types/react": "^19.2.18",
+    "@types/react-dom": "^19.2.4",
+    "typescript": "^5.9.3"
+  }
+}

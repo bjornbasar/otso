@@ -1,0 +1,43 @@
+name: Publish to npm
+
+# Tag-triggered, matching the fleet's own convention for its GitHub-side publish step
+# (a v* tag → the public registry). Unlike the deploy fleet's own docker images, this
+# package has no Ruxa-side deploy at all — publishing to npm on tag IS the whole release.
+on:
+  push:
+    tags:
+      - "v*"
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write # npm provenance
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          registry-url: "https://registry.npmjs.org"
+
+      - run: npm ci
+
+      - run: npm run typecheck
+
+      # The tag IS the version — refuse to publish a mismatch rather than let the two
+      # drift, the same failure mode a stale cache-buster or a stale doc causes elsewhere
+      # in this estate.
+      - name: Verify tag matches package.json version
+        run: |
+          TAG_VERSION="${GITHUB_REF_NAME#v}"
+          PKG_VERSION="$(node -p "require('./package.json').version")"
+          if [ "$TAG_VERSION" != "$PKG_VERSION" ]; then
+            echo "::error::tag v$TAG_VERSION does not match package.json version $PKG_VERSION"
+            exit 1
+          fi
+
+      - run: npm publish --access public --provenance
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

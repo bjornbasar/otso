@@ -1,0 +1,38 @@
+/*
+ * The mat: a fixed, full-bleed woven background layer. Self-contained — no game content
+ * is coupled to it, so it's the cleanest single-layer extraction in this package.
+ *
+ * Cost: four gradient layers rasterised ONCE into a fixed, pointer-transparent layer that
+ * never scrolls, never animates, and is never filtered. `position: fixed` rather than
+ * `background-attachment: fixed` — the latter forces a full repaint on every scroll frame
+ * on mobile, which a 60fps table cannot afford.
+ *
+ * `z-index: 0` is the verified-correct value — read directly from karu's live production
+ * CSS during extraction, not assumed. If your own app previously used `-1` for this layer,
+ * that was a deviation introduced independently, not a fix; revert to `0` when adopting
+ * this file.
+ */
+
+.table-surface {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-color: var(--mat);
+  background-image:
+    /* the bulb overhead */
+    radial-gradient(120% 85% at 50% 4%, var(--lamp) 0%, transparent 58%),
+    /* the room falling away at the edges — does more for "a real place" than any
+       amount of texture detail */
+    radial-gradient(145% 115% at 50% 55%, transparent 42%, var(--vignette) 100%),
+    /* weft — 38px */
+    repeating-linear-gradient(45deg,
+      var(--weave-lo) 0,
+      var(--weave-hi) calc(var(--weave-weft) * 0.5),
+      var(--weave-lo) var(--weave-weft)),
+    /* warp — 34px, deliberately not the same number */
+    repeating-linear-gradient(-45deg,
+      var(--weave-lo) 0,
+      var(--weave-hi) calc(var(--weave-warp) * 0.5),
+      var(--weave-lo) var(--weave-warp));
+}
