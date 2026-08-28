@@ -22,6 +22,10 @@ jobs:
           node-version: "22"
           registry-url: "https://registry.npmjs.org"
 
+      # Trusted Publishing (OIDC, no NPM_TOKEN) needs npm 11.5.1+; ubuntu-latest's
+      # bundled npm on a Node 22 image can lag behind that.
+      - run: npm install -g npm@latest
+
       - run: npm ci
 
       - run: npm run typecheck
@@ -38,6 +42,11 @@ jobs:
             exit 1
           fi
 
+      # No NODE_AUTH_TOKEN / NPM_TOKEN secret — this repo is registered as a Trusted
+      # Publisher on the npm package (npmjs.com → package → Settings → Trusted Publisher:
+      # provider GitHub Actions, repo bjornbasar/otso, workflow npm-publish.yml). npm
+      # authenticates this run via the id-token above instead of a stored credential.
+      # That registration can only happen AFTER the package exists on npm, so v0.1.0 is
+      # published once by hand (`npm publish --access public` locally) to create it —
+      # every release after that goes through this workflow.
       - run: npm publish --access public --provenance
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
