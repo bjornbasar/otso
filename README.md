@@ -1,18 +1,17 @@
-# otso
+# @twobots/ui-theme
 
 Shared visual material for the [`twobots.dev`](https://twobots.dev) card-game lineup — design
-tokens, generic playing-card rendering, and the woven table-surface background. Published to npm
-as **`@twobots/ui-theme`**.
+tokens, generic playing-card rendering, table-shell chrome, and a dialog/sheet overlay shell.
+Ships raw source; consuming apps compile it with their own Vite/TypeScript pipeline.
 
-Extracted from [karu](https://github.com/bjornbasar/karu) (Tongits TwoBots) after
-[andarta](https://github.com/bjornbasar/andarta) hand-retyped these same values once already and
-it still took a live side-by-side screenshot comparison to catch what a per-property copy missed
-(see andarta's own `DOCS.md`, issue #26). This package exists so "matching karu's look" is an
-import, not a re-authoring exercise every sibling game repeats.
+Extracted from Tongits TwoBots after a sibling game hand-retyped these same values once already
+and it still took a live side-by-side screenshot comparison to catch what a per-property copy
+missed. This package exists so "matching the reference game's look" is an import, not a
+re-authoring exercise every sibling game repeats.
 
-Repo name **otso** — Finnish sacred bear-name ("honey-paw"), matching the workspace's
-authorship-naming convention (the repo/package split mirrors how each game's own repo name
-differs from its store-facing name, e.g. `karu` → "Tongits TwoBots").
+Sibling to [`@twobots/game-kit`](https://www.npmjs.com/package/@twobots/game-kit) (non-visual
+game logic — a bot-naming pool and feedback-sending primitives) — kept as a separate package
+since neither belongs under a name that says "ui-theme."
 
 ## What's in it, and what deliberately isn't
 
