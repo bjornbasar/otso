@@ -1,8 +1,9 @@
 # @twobots/ui-theme
 
 Shared visual material for the [`twobots.dev`](https://twobots.dev) card-game lineup — design
-tokens, generic playing-card rendering, table-shell chrome, and a dialog/sheet overlay shell.
-Ships raw source; consuming apps compile it with their own Vite/TypeScript pipeline.
+tokens, generic playing-card rendering, table-shell chrome, a dialog/sheet overlay shell, and the
+rail header strip + utility-button look. Ships raw source; consuming apps compile it with their
+own Vite/TypeScript pipeline.
 
 Extracted from Tongits TwoBots after a sibling game hand-retyped these same values once already
 and it still took a live side-by-side screenshot comparison to catch what a per-property copy
@@ -24,11 +25,22 @@ since neither belongs under a name that says "ui-theme."
 - `overlay.css` — `.overlay-backdrop` / `.overlay-panel` (+ `.overlay-panel--elevated`), the
   dimmed, centred dialog shell shared by every reference screen and settlement/reveal sheet.
   CSS only — each app keeps its own focus management, Escape handling, and panel content.
+- `rail.css` — `.rail`, the 3-slot header-strip grid (leading controls | flexible ticker/status |
+  trailing controls) both apps already had the same column math for; and `.chrome-button`, the
+  small utility-button look (Help/Report/Rules/Feedback pills) andarta's own CSS had already
+  copied from karu's `.rail__help` by hand. No size opinion beyond the pill's own common one — a
+  button that needs a different size (karu's action bar, deliberately large 48px primary tap
+  targets rather than a small utility pill) overrides just that, keeping the shared look.
 
-**Out of scope, stays in each app** — anything with real game rules behind it: melds, discard
-piles, settlement sheets, a widow slot, an action console. This is shared *material*, not a
-shared game-UI framework. A game that needs a special face-down treatment (a secret-set reveal,
-for instance) wraps `CardFace` rather than `CardFace` growing a prop for it.
+**Out of scope, stays in each app** — anything with real game rules or a real layout decision
+behind it: melds, discard piles, settlement sheets, a widow slot, and the action console itself.
+karu's action console is a fixed 2-row grid whose action row deliberately never wraps ("wrapping
+would push the board up mid-turn") and scrolls horizontally instead; andarta's is a plain
+flex-wrap row. Same name, genuinely different layout intent — sharing the mechanism here would be
+a real behavior change on whichever side didn't already work that way, not a mechanical dedup.
+This is shared *material*, not a shared game-UI framework. A game that needs a special face-down
+treatment (a secret-set reveal, for instance) wraps `CardFace` rather than `CardFace` growing a
+prop for it.
 
 ## Using it
 
@@ -44,6 +56,7 @@ import '@twobots/ui-theme/tokens.css'
 import '@twobots/ui-theme/table-surface.css'
 import '@twobots/ui-theme/card.css'
 import '@twobots/ui-theme/overlay.css'
+import '@twobots/ui-theme/rail.css'
 import { CardFace, SuitSprite, type Card } from '@twobots/ui-theme/card'
 ```
 

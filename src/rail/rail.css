@@ -1,0 +1,42 @@
+/*
+ * The rail: a 3-slot header strip — leading controls | a flexible ticker/status
+ * region | trailing controls. Verified identical between karu and andarta before
+ * this existed (same grid-template-columns, same gap, same align-items) — each
+ * app supplies its own row height and its own content in the three slots; this is
+ * only the column math both had already converged on independently.
+ */
+.rail {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 10px;
+}
+
+/*
+ * chrome-button: the small utility-button look — a rail or console icon/word
+ * pill (Help, Report, Rules, Feedback). No layout opinion beyond the pill's own
+ * common size; a button that genuinely needs a different size (karu's action
+ * bar, which wants large 48px primary tap targets, not a small utility pill)
+ * overrides `min-block-size` on its own class, keeping this one for the look
+ * alone. Andarta's own CSS already extended karu's `.rail__help` pill onto its
+ * `.console__button` for exactly this reason before this package existed.
+ */
+.chrome-button {
+  padding: 4px 10px;
+  min-block-size: 28px;
+  border: 0;
+  border-radius: 3px;
+  background-color: var(--mat-lo);
+  color: var(--dim);
+  font: inherit;
+  font-size: var(--step--1);
+  cursor: pointer;
+}
+.chrome-button:hover:not(:disabled) {
+  color: var(--text);
+  background-color: var(--mat-deep);
+}
+.chrome-button:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
