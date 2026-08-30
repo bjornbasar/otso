@@ -16,3 +16,15 @@ the personal workspace repo for the naming source-of-truth this drew from.
 Extracted from karu (Tongits TwoBots) after andarta hand-retyped these same values once already
 and it still took a live side-by-side screenshot comparison to catch what a per-property copy
 missed (see andarta's own `DOCS.md`, issue #26).
+
+**`v0.3.0` — `rail.css`.** `.rail`/`.chrome-button` confirmed byte-identical between karu and
+andarta before extraction — independent convergence, not a copy either side knew about.
+
+**`v0.4.0` — the `RailButton` component.** karu's own version (`web/App.tsx`) is the superset —
+`dialog?: boolean = true` and a `house` glyph andarta's own hand-copied `RailButton.tsx` had
+dropped (andarta has no rail Settings button, so `house` sits unused there, harmlessly). Moved
+here instead of leaving CSS-only despite this package's own "CSS only" framing elsewhere in this
+file's Naming section not applying to it — `RailButton` is markup-plus-behavior, not a game-rule
+decision, and the alternative (each app re-typing the same word/glyph-toggle button forever) is
+exactly what this package exists to prevent. It emits `.rail__help`/`.rail__word`/`.rail__icon`,
+none of which this package styles — see the README's own note on that.

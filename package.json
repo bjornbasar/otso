@@ -1,7 +1,7 @@
 {
   "name": "@twobots/ui-theme",
-  "version": "0.3.0",
-  "description": "Shared visual material for the twobots.dev card-game lineup — design tokens, generic card rendering, table-shell chrome, a dialog/sheet overlay shell, and the rail header strip + utility-button look. Ships raw source; consuming apps compile it with their own Vite/TypeScript pipeline.",
+  "version": "0.4.0",
+  "description": "Shared visual material for the twobots.dev card-game lineup — design tokens, generic card rendering, table-shell chrome, a dialog/sheet overlay shell, and the rail header strip + utility-button + control. Ships raw source; consuming apps compile it with their own Vite/TypeScript pipeline.",
   "type": "module",
   "license": "MIT",
   "repository": {
@@ -17,12 +17,15 @@
     "./card.css": "./src/card/card.css",
     "./card": "./src/card/index.ts",
     "./overlay.css": "./src/overlay/overlay.css",
-    "./rail.css": "./src/rail/rail.css"
+    "./rail.css": "./src/rail/rail.css",
+    "./rail": "./src/rail/index.ts"
   },
   "engines": {
     "node": ">=22.13"
   },
   "scripts": {
+    "test": "vitest run",
+    "test:watch": "vitest",
     "typecheck": "tsc --noEmit"
   },
   "peerDependencies": {
@@ -32,6 +35,11 @@
   "devDependencies": {
     "@types/react": "^19.2.18",
     "@types/react-dom": "^19.2.4",
-    "typescript": "^5.9.3"
+    "@vitejs/plugin-react": "^5.2.0",
+    "jsdom": "^29.1.1",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8",
+    "typescript": "^5.9.3",
+    "vitest": "^3.2.4"
   }
 }

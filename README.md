@@ -2,8 +2,8 @@
 
 Shared visual material for the [`twobots.dev`](https://twobots.dev) card-game lineup — design
 tokens, generic playing-card rendering, table-shell chrome, a dialog/sheet overlay shell, and the
-rail header strip + utility-button look. Ships raw source; consuming apps compile it with their
-own Vite/TypeScript pipeline.
+rail header strip + utility-button + control. Ships raw source; consuming apps compile it with
+their own Vite/TypeScript pipeline.
 
 Extracted from Tongits TwoBots after a sibling game hand-retyped these same values once already
 and it still took a live side-by-side screenshot comparison to catch what a per-property copy
@@ -31,6 +31,13 @@ since neither belongs under a name that says "ui-theme."
   copied from karu's `.rail__help` by hand. No size opinion beyond the pill's own common one — a
   button that needs a different size (karu's action bar, deliberately large 48px primary tap
   targets rather than a small utility pill) overrides just that, keeping the shared look.
+- `rail/` — `RailButton`, a control that shows a word on a roomy viewport and a glyph on a narrow
+  one (Rules/House/Leave), karu's own real version, ported wholesale after andarta had already
+  copied it by hand. It emits `.rail__help`/`.rail__word`/`.rail__icon` — classes this package
+  does **not** style; `rail.css`'s `.chrome-button` supplies the look, and each app's own
+  `board.css` still owns the narrow-viewport word/icon swap for `.rail__help`. A control that
+  opens a dialog gets `aria-haspopup="dialog"` by default (`dialog={false}` for one that just
+  navigates, e.g. a "leave" action).
 
 **Out of scope, stays in each app** — anything with real game rules or a real layout decision
 behind it: melds, discard piles, settlement sheets, a widow slot, and the action console itself.
@@ -58,6 +65,7 @@ import '@twobots/ui-theme/card.css'
 import '@twobots/ui-theme/overlay.css'
 import '@twobots/ui-theme/rail.css'
 import { CardFace, SuitSprite, type Card } from '@twobots/ui-theme/card'
+import { RailButton } from '@twobots/ui-theme/rail'
 ```
 
 A dialog screen combines `overlay-backdrop`/`overlay-panel` with the app's own dialog markup:
