@@ -13,6 +13,9 @@ copyright: MIT licensed
 
 theme:
   name: material
+  # overrides/main.html adds a root-relative "All documentation" link to every page.
+  # Root-relative on purpose — these sites answer under two hostnames. See that file.
+  custom_dir: overrides
   # Deep orange/amber is karhu's; teal/cyan is datvi's. A third pair so the three reference
   # sites are distinguishable at a glance when several are open under one docs host.
   palette:
