@@ -1,0 +1,21 @@
+# Deploy compose — runs on Lumra (192.168.4.37, x86_64) at /data/otso-docs.
+# The @twobots/ui-theme API reference, Ayula-fronted at BOTH:
+#   https://docs.twobots.dev/otso/       (public)
+#   https://docs.bjornbasar.com/otso/    (Cloudflare Access)
+#
+# NOT on Hurska, unlike every other static site here. Hurska runs thirteen containers on
+# ~500 MB free; Lumra runs three on ~3 GB. Hurska is the static tier but is the least able
+# to absorb another one, and a docs page is the safest thing to put on a WiFi host — brief
+# unreachability is not an incident, which is why the apps stay where they are.
+#
+# Lumra rather than Bosco (which takes datvi's) purely to spread the two docs sites across
+# both light hosts, so neither WiFi box carries the whole reference at once.
+#
+# Lumra's ports:  3500 wojtek · 8102 otso-docs · 9182 gh-readme-stats
+services:
+  otso-docs:
+    image: 192.168.4.9:5000/otso-docs:latest
+    container_name: otso-docs
+    ports:
+      - "8102:80"
+    restart: unless-stopped
