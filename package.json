@@ -1,7 +1,7 @@
 {
   "name": "@twobots/ui-theme",
-  "version": "0.5.0",
-  "description": "Shared visual material for the twobots.dev card-game lineup — design tokens, generic card rendering, table-shell chrome, a dialog/sheet overlay shell, the rail header strip + utility-button + control, and a ranked stopping-point screen. Ships raw source; consuming apps compile it with their own Vite/TypeScript pipeline.",
+  "version": "0.6.0",
+  "description": "Shared visual material for the twobots.dev card-game lineup — design tokens, generic card rendering, table-shell chrome, a dialog/sheet overlay shell, the rail header strip + utility-button + control, a ranked stopping-point screen, and a bot thinking-dots indicator. Ships raw source; consuming apps compile it with their own Vite/TypeScript pipeline.",
   "type": "module",
   "license": "MIT",
   "repository": {
@@ -20,7 +20,9 @@
     "./rail.css": "./src/rail/rail.css",
     "./rail": "./src/rail/index.ts",
     "./match-over.css": "./src/match-over/match-over.css",
-    "./match-over": "./src/match-over/index.ts"
+    "./match-over": "./src/match-over/index.ts",
+    "./thinking.css": "./src/thinking/thinking.css",
+    "./thinking": "./src/thinking/index.ts"
   },
   "engines": {
     "node": ">=22.13"

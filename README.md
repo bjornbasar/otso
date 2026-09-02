@@ -2,8 +2,8 @@
 
 Shared visual material for the [`twobots.dev`](https://twobots.dev) card-game lineup — design
 tokens, generic playing-card rendering, table-shell chrome, a dialog/sheet overlay shell, the rail
-header strip + utility-button + control, and a ranked stopping-point screen. Ships raw source;
-consuming apps compile it with their own Vite/TypeScript pipeline.
+header strip + utility-button + control, a ranked stopping-point screen, and a bot thinking-dots
+indicator. Ships raw source; consuming apps compile it with their own Vite/TypeScript pipeline.
 
 Extracted from Tongits TwoBots after a sibling game hand-retyped these same values once already
 and it still took a live side-by-side screenshot comparison to catch what a per-property copy
@@ -51,6 +51,14 @@ since neither belongs under a name that says "ui-theme."
   layout, short-viewport behavior) — shipping CSS for those classes here would collide with
   whichever app's own rule loads second, at equal specificity. A new consumer supplies that shell
   CSS itself, the same way both current apps already do for their own title screens.
+- `thinking/` — `ThinkingDots`, three staggered dots for a bot turn's pause (the shared
+  `@twobots/game-kit/timing` delay can run several seconds — long enough that a bare status line
+  can start to feel like nothing is happening). Dots over a spinner deliberately: a spinner reads
+  as "the app is loading/blocked," the opposite of what a bot's own turn is. No props — nothing
+  varies per caller — and `aria-hidden`, since the meaning already lives in whichever status text
+  each app renders alongside it. `thinking.css`'s dots use `currentColor`, so they carry no color
+  opinion of their own, and a `prefers-reduced-motion` fallback stills the animation without
+  removing the cue (three static dots, not none).
 
 **Out of scope, stays in each app** — anything with real game rules or a real layout decision
 behind it: melds, discard piles, settlement sheets, a widow slot, and the action console itself.
@@ -88,9 +96,11 @@ import '@twobots/ui-theme/card.css'
 import '@twobots/ui-theme/overlay.css'
 import '@twobots/ui-theme/rail.css'
 import '@twobots/ui-theme/match-over.css'
+import '@twobots/ui-theme/thinking.css'
 import { CardFace, SuitSprite, type Card } from '@twobots/ui-theme/card'
 import { RailButton } from '@twobots/ui-theme/rail'
 import { MatchOverScreen, type MatchOverRow } from '@twobots/ui-theme/match-over'
+import { ThinkingDots } from '@twobots/ui-theme/thinking'
 ```
 
 A stopping-point screen supplies its own already-ranked rows and outcome text — the shell (dialog,

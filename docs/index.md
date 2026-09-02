@@ -1,8 +1,8 @@
 # @twobots/ui-theme
 
 Shared visual material for the [twobots.dev](https://twobots.dev) card-game lineup: design
-tokens, a generic card face, table-shell chrome, an overlay shell, the rail header strip, and a
-ranked stopping-point screen.
+tokens, a generic card face, table-shell chrome, an overlay shell, the rail header strip, a
+ranked stopping-point screen, and a bot thinking-dots indicator.
 
 ```bash
 npm install @twobots/ui-theme
@@ -18,8 +18,9 @@ npm install @twobots/ui-theme
 | `@twobots/ui-theme/overlay.css` | stylesheet **only** | [Stylesheets](styles.md) |
 | `@twobots/ui-theme/rail.css` + `@twobots/ui-theme/rail` | stylesheet + component | [rail](api/rail.md) |
 | `@twobots/ui-theme/match-over.css` + `@twobots/ui-theme/match-over` | stylesheet + component | [match-over](api/match-over.md) |
+| `@twobots/ui-theme/thinking.css` + `@twobots/ui-theme/thinking` | stylesheet + component | [thinking](api/thinking.md) |
 
-Nine entry points, no root barrel. A game that wants the card face should not pull a
+Eleven entry points, no root barrel. A game that wants the card face should not pull a
 stopping-point screen into its bundle.
 
 ## Everything here was extracted, never designed up front
