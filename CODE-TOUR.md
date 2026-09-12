@@ -34,6 +34,28 @@ import rather than a re-authoring exercise each sibling repeats.
 | Overlays | [`src/overlay/overlay.css`](src/overlay/overlay.css) | Dialog / sheet shell |
 | Rail | [`src/rail/RailButton.tsx`](src/rail/RailButton.tsx), [`src/rail/rail.css`](src/rail/rail.css) | Header strip, utility button, control |
 | End screen | [`src/match-over/MatchOverScreen.tsx`](src/match-over/MatchOverScreen.tsx) | Ranked stopping-point screen |
+| Thinking indicator | [`src/thinking/ThinkingDots.tsx`](src/thinking/ThinkingDots.tsx), [`src/thinking/thinking.css`](src/thinking/thinking.css) | The dots a bot shows while it "considers" a move |
+
+### `ThinkingDots` is the extraction rule's cleanest demonstration
+
+Added after the rest, and worth a stop because of *where its other half went*.
+
+"A bot is thinking" needs two things: dots that animate on screen, and a decision about how
+long to wait before the bot acts. They arrived together, as one feature, in one sitting. They
+did **not** ship together: the dots are here, and the delay — `botThinkingDelayMs` — is in
+[datvi](../datvi/CODE-TOUR.md) under `@twobots/game-kit/timing`.
+
+Nothing forced that. One package would have been more convenient, and a component that owned
+its own timing would have been a smaller diff. The split happened because the rule this
+package is named for was applied to a feature that straddled it, and the answer came out in
+two pieces: **an animation is visual material, and a duration is not.** A `ui-theme` that
+shipped the delay would have started lying about itself at exactly the moment it became
+convenient to.
+
+That is the test both these packages exist to demonstrate, and it is easier to see here than
+in the original extraction, because here there was no prior duplication to respond to — only
+the question of which package each half belonged in. Read datvi's side of it too; the two
+tours describe the same afternoon from opposite ends.
 
 ## 2. The shape decision — ships raw source
 
@@ -66,4 +88,4 @@ only karu knows that.
 
 ---
 
-*Tour covers otso @ `ab2e17b`. Companion: [README.md](README.md), [DOCS.md](DOCS.md). Sibling: [datvi](../datvi/CODE-TOUR.md) — the non-visual half.*
+*Tour covers otso @ `1df3c30`. Companion: [README.md](README.md), [DOCS.md](DOCS.md). Sibling: [datvi](../datvi/CODE-TOUR.md) — the non-visual half.*
