@@ -13,7 +13,11 @@
 set -euo pipefail
 source "${CI_LIB:-/data/git/ci-lib.sh}"
 
-LUMRA="ubuntu@192.168.4.37"
+# .38 (USB-Ethernet dongle), not .37 (WiFi) -- the wifi card has a recurring PCIe
+# drop (reference_lumra_iwlwifi_pcie_drop.md) and the dongle is now the reliable
+# path. A deploy only needs ONE reachable address, unlike nginx/Prometheus which
+# got dual-path failover -- .38 alone is correct here.
+LUMRA="ubuntu@192.168.4.38"
 LUMRA_DIR="/data/otso-docs"
 IMG="$REGISTRY/otso-docs"
 PORT=8102
