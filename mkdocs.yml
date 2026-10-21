@@ -49,6 +49,7 @@ nav:
     - card: api/card.md
     - rail: api/rail.md
     - match-over: api/match-over.md
+    - thinking: api/thinking.md
 
 # Turn link and anchor problems into warnings, which `--strict` then turns into a failed
 # build. Without this, a cross-reference to a renamed heading is only an INFO message and
