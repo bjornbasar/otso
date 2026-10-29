@@ -49,7 +49,7 @@ app's own rule loaded second, at equal specificity.
 **docs.bjornbasar.com/otso/** (Cloudflare Access), both served by the same `otso-docs`
 container on **Lumra :8102**. Lumra rather than Bosco (which carries datvi's) purely to spread
 the two reference sites across both light hosts. `ci/deploy.sh` renders, builds multi-arch,
-deploys and smoke-tests on `git push ruxa main`.
+deploys and smoke-tests on `git push den main`.
 
 Everything about the path-prefix-inside-the-image arrangement and the `tools/check-docs.mjs`
 gate is written up once, in **datvi's `DOCS.md`** — the two repos run the identical tool and the
